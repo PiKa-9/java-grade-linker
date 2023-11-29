@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/static/css/general.css">
+    <link rel="stylesheet" href="/static/css/pages/register.css">
+
+    <title>GradeLinker</title>
+</head>
+<body>
+
+<h2 class="heading">Create Account</h2>
+
+<form class="form-0" action="/register" method="post">
+    <div class="form-group">
+        <label for="username-field">Username:</label>
+        <input id="username-field" class="form-control" type="text" name="username" placeholder="Username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="user-type-field">Account Type:</label>
+        <div class="select">
+            <select name="type" id="user-type-field">
+                <!-- <option value="">&#45;&#45;Please choose an option&#45;&#45;</option> -->
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="firstName-field">First Name:</label>
+        <input id="firstName-field" class="form-control" type="text" name="firstName" placeholder="First Name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="lastName-field">Last Name:</label>
+        <input id="lastName-field" class="form-control" type="text" name="lastName" placeholder="Last Name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password-field">Password:</label>
+        <input id="password-field" class="form-control" type="password" name="password" placeholder="Password" required>
+    </div>
+
+    <div class="form-group">
+        <label for="confirm-password-field">Confirm Password:</label>
+        <input id="confirm-password-field" class="form-control" type="password" name="confirmPassword" placeholder="Password" required>
+    </div>
+
+    <button class="btn-0" type="submit">Register</button>
+
+    <p th:if="${invalid}" class="invalid-message" th:text="${invalid}"></p>
+    <a class="link-0" href="/login">Back to LogIn page</a>
+</form>
+
+</body>
+</html>

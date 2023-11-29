@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class LoginControllerTest {
+public class LoginControllerTest {
     @Autowired
     private PasswordHasher hasher;
     @Autowired
@@ -74,7 +74,7 @@ class LoginControllerTest {
                         .param("password", passwordT)
                 )
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("invalidCredentials", "Invalid Credentials"));
+                .andExpect(model().attribute("invalid", "Invalid Credentials"));
     }
 
 }

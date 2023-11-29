@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService {
+    private final PasswordHasher hasher;
+    private final UserDTOMapper userDTOMapper;
+    private final UsersRepository usersRepo;
+
     @Autowired
-    private PasswordHasher hasher;
-    @Autowired
-    private UserDTOMapper userDTOMapper;
-    @Autowired
-    private UsersRepository usersRepo;
+    public LoginService(PasswordHasher hasher, UserDTOMapper userDTOMapper, UsersRepository usersRepo) {
+        this.hasher = hasher;
+        this.userDTOMapper = userDTOMapper;
+        this.usersRepo = usersRepo;
+    }
 
     /* Returns null, if invalid credentials */
     public LoginUser login(String username, String password) {

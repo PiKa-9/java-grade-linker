@@ -21,17 +21,6 @@ public class JsonFilesRepo<T> implements Repository<T> {
         jsonMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
 
-    @Override
-    public void save(String id, T object) {
-        File file = new File(dirPath + "_" + id + ".json");
-        synchronized (file) {
-            try {
-                jsonMapper.writeValue(file, object);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public T getById(String id) {
@@ -45,16 +34,27 @@ public class JsonFilesRepo<T> implements Repository<T> {
             return null;
         }
     }
+    @Override
+    public boolean existsById(String id) {
+        File file = new File(dirPath + "_" + id + ".json");
+        return file.exists();
+    }
+
+    @Override
+    public void save(String id, T object) {
+        File file = new File(dirPath + "_" + id + ".json");
+        synchronized (file) {
+            try {
+                jsonMapper.writeValue(file, object);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public boolean deleteById(String id) {
         File file = new File(dirPath + "_" + id + ".json");
         return file.delete();
-    }
-
-    @Override
-    public boolean existsById(String id) {
-        File file = new File(dirPath + "_" + id + ".json");
-        return file.exists();
     }
 }

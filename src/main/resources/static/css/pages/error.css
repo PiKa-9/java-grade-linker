@@ -1,0 +1,29 @@
+body {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20vh;
+
+    color: #ffa3a3;
+    width: 40vw;
+    height: 40vh;
+    padding: 20px;
+    background-color: #555;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.error-container h1 {
+    margin: 10px;
+}
+.error-container a {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: #a1c6ff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

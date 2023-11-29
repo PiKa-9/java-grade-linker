@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
-    @Autowired
-    private HttpSession session;
-
     private final LoginService loginService;
+
     @Autowired
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
@@ -31,7 +29,7 @@ public class LoginController {
 
         /* Invalid login-password */
         if (user == null) {
-            model.addAttribute("invalidCredentials", "Invalid Credentials");
+            model.addAttribute("invalid", "Invalid Credentials");
             return "pages/login.html";
         }
 

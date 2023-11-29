@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/error.css}">
+
+    <title>GradeLinker</title>
+</head>
+<body>
+<div class="error-container">
+    <h1>Error</h1>
+    <p>Oops! Something went wrong</p>
+    <a class="link-0 border-0" th:href="@{/login}">Go to the LogIn page</a>
+</div>
+</body>
+</html>

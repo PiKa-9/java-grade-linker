@@ -25,7 +25,7 @@
 
     <button class="btn-0" type="submit">Sign in <i class="fas fa-sign-in-alt"></i></button>
 
-    <p th:if="${invalidCredentials}" class="invalid-message" th:text="${invalidCredentials}"></p>
+    <p th:if="${invalid}" class="invalid-message" th:text="${invalid}">Invalid Credentials</p>
 
     <a class="link-0" href="/register">Register</a>
 </form>

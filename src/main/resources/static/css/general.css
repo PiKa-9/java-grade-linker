@@ -1,9 +1,8 @@
 body {
+    display: flex;
     background-color: #41403e;
     color: #fff;
-/*    font-family: Arial, sans-serif;*/
     font-family: 'Brush Script MT', cursive;
-/*    font-family: 'Hedvig Letters Serif';*/
     margin: 0;
 }
 body::-webkit-scrollbar {
@@ -43,10 +42,6 @@ body::-webkit-scrollbar-thumb {
     width: 300px;
     padding: 20px;
     background-color: #555;
-/*    border-top-left-radius: 255px 15px;*/
-/*    border-top-right-radius: 255px 15px;*/
-/*    border-bottom-left-radius: 255px 15px;*/
-/*    border-bottom-right-radius: 255px 15px;*/
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .form-group {
@@ -79,7 +74,6 @@ body::-webkit-scrollbar-thumb {
 .link-0:hover {
     text-decoration: underline;
 }
-
 
 /* Buttons */
 .btn-0 {
