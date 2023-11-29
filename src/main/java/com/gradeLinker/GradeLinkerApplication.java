@@ -1,4 +1,4 @@
-package com.example.gradeLinker;
+package com.gradeLinker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

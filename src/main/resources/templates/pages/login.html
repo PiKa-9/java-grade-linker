@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/login.css}">
+
+    <title>GradeLinker</title>
+</head>
+<body>
+
+<h2 class="heading">Login</h2>
+
+<form class="form-0" action="/login" method="post">
+    <div class="form-group">
+        <input id="username-field" class="form-control" type="text" name="username" placeholder="Username" required>
+    </div>
+
+    <div class="form-group">
+        <input id="password-field" class="form-control" type="password" name="password" placeholder="Password" required>
+    </div>
+
+    <button class="btn-0" type="submit">Sign in <i class="fas fa-sign-in-alt"></i></button>
+
+    <p th:if="${invalidCredentials}" class="invalid-message" th:text="${invalidCredentials}"></p>
+
+    <a class="link-0" href="/register">Register</a>
+</form>
+
+<div class="blockquote">
+    <h1>Embrace knowledge; it's the key to boundless horizons.</h1>
+    <h4>&mdash;ChatGPT</h4>
+</div>
+
+</body>
+</html>

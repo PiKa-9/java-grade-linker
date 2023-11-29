@@ -1,0 +1,205 @@
+body {
+    background-color: #41403e;
+    color: #fff;
+/*    font-family: Arial, sans-serif;*/
+    font-family: 'Brush Script MT', cursive;
+/*    font-family: 'Hedvig Letters Serif';*/
+    margin: 0;
+}
+body::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #727272;
+    outline: 1px solid slategrey;
+}
+
+/* Borders */
+.border-0 {
+    border-color: #090909;
+
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+}
+
+/* Form stuff */
+.heading {
+    text-align: center;
+    color: #fff;
+
+    margin-top: 0;
+}
+.form-0 {
+    width: 300px;
+    padding: 20px;
+    background-color: #555;
+/*    border-top-left-radius: 255px 15px;*/
+/*    border-top-right-radius: 255px 15px;*/
+/*    border-bottom-left-radius: 255px 15px;*/
+/*    border-bottom-right-radius: 255px 15px;*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.form-group {
+    margin-bottom: 10px;
+}
+.form-control {
+    margin-bottom: 2px;
+
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 10px 100px / 120px;;
+}
+.invalid-message {
+    color: #ff5555;
+    text-align: center;
+}
+
+/* Links */
+.link-0 {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+.link-0:hover {
+    text-decoration: underline;
+}
+
+
+/* Buttons */
+.btn-0 {
+    margin-top: 10px;
+
+    font-size: 15px;
+    font-family: 'Brush Script MT', cursive;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    border: none;
+    border-radius: 5% 5% 50% 50%;;
+    cursor: pointer;
+    transition: all 135ms ease-in-out;
+}
+.btn-0:hover {
+    background-color: #2c2c2c;
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+}
+.btn-0:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.btn-3 {
+    align-self: center;
+    background-color: #41403e;
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Neucha, sans-serif;
+    font-size: 1rem;
+    line-height: 23px;
+    outline: none;
+    padding: .75rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.btn-3:hover {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);
+}
+.btn-3:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+/* Quotes */
+.blockquote {
+    position: relative;
+    font-family: 'Barlow Condensed', sans-serif;
+    max-width: 60vw;
+    margin: 10vh auto;
+    align-self: center;
+}
+.blockquote h1 {
+    font-family: 'Abril Fatface', cursive;
+    position: relative; /* for pseudos */
+    color: #969694;
+    font-size: 1.1rem;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0;
+    border: 2px solid #fff;
+    border: solid 2px;
+    border-radius:20px;
+    padding: 25px;
+}
+.blockquote h1:after {
+    content:"";
+    position: absolute;
+    border: 2px solid #969694;
+    border-radius: 0 50px 0 0;
+    width: 60px;
+    height: 60px;
+    bottom: -62px;
+    left: 50px;
+    border-bottom: none;
+    border-left: none;
+    z-index: 3;
+}
+.blockquote h1:before {
+    content:"";
+    position: absolute;
+    width: 80px;
+    border: 6px solid #41403e;
+    bottom: -3px;
+    left: 50px;
+    z-index: 2;
+}
+.blockquote h4 {
+    position: relative;
+    color: #969694;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    padding-top: 15px;
+    z-index: 1;
+    margin-left:150px;
+    padding-left:12px;
+}
+.blockquote h4:first-letter {
+    margin-left:-12px;
+}
