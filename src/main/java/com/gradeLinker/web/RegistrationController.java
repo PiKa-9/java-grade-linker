@@ -1,6 +1,5 @@
 package com.gradeLinker.web;
 
-import com.gradeLinker.domain.UserFactory;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.storage.UserDTOMapper;
 import com.gradeLinker.dto.web.RegistrationRequest;
@@ -20,14 +19,12 @@ import java.util.HashSet;
 @Controller
 public class RegistrationController {
     private final PasswordHasher hasher;
-    private final UserFactory userFactory;
     private final UserDTOMapper userDTOMapper;
     private final UsersRepository usersRepo;
 
     @Autowired
-    public RegistrationController(PasswordHasher hasher, UserFactory userFactory, UserDTOMapper userDTOMapper, UsersRepository usersRepo) {
+    public RegistrationController(PasswordHasher hasher, UserDTOMapper userDTOMapper, UsersRepository usersRepo) {
         this.hasher = hasher;
-        this.userFactory = userFactory;
         this.userDTOMapper = userDTOMapper;
         this.usersRepo = usersRepo;
     }
@@ -52,7 +49,7 @@ public class RegistrationController {
         }
 
         /* Add user to users repository */
-        User user = userFactory.createUser(
+        User user = new User(
                 response.getUsername(),
                 hasher.hash(response.getPassword()),
                 new HashSet<>(),

@@ -1,0 +1,15 @@
+{
+  "id" : "4gF9JG",
+  "title" : "Math",
+  "participants": [ {
+    "username" : "user1",
+    "roles" : [ "all-grade-viewer" ]
+  }, {
+    "username" : "user2",
+    "roles" : [ "has-grades" ]
+  } ],
+  "grades": {
+    "user1": {},
+    "user2": {}
+  }
+}

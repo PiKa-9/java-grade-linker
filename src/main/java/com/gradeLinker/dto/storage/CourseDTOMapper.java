@@ -45,6 +45,7 @@ public class CourseDTOMapper {
     }
 
     public Course fromDTO(CourseDTO dto) {
+        if (dto == null) { return null; }
         Course course = new Course(
                 dto.getId(),
                 dto.getTitle(),

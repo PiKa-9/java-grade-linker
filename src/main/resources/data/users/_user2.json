@@ -3,6 +3,6 @@
   "roles" : [ "join_course" ],
   "passwordHash" : 49,
   "firstName" : "Simple",
-  "lastName" : "Blue",
-  "courseIds" : [ ]
+  "lastName" : "Student",
+  "courseIds" : [ "4gF9JG" ]
 }

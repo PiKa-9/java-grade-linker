@@ -24,3 +24,15 @@ Dependency injection:
 in main/* : through constructor
 in test/* : through fields (for quicker test refactoring,
                             since we can change the test-fields quite often)
+
+==================================
+
+Domain classes:
+    - constructor should be one and contain all class fields
+    - specify which fields are immutable by 'final' keyword
+    - setters should not be defined for Map, List, Set,
+              instead define addAll(...), clearAll() methods
+
+==================================
+Variable naming:
+    participant <- participant of the course

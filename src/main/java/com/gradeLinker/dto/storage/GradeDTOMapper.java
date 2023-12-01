@@ -1,19 +1,11 @@
 package com.gradeLinker.dto.storage;
 
-import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Grade;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gradeLinker.domain.course.IntGrade;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GradeDTOMapper {
-    private final GradeFactory gradeFactory;
-
-    @Autowired
-    public GradeDTOMapper(GradeFactory gradeFactory) {
-        this.gradeFactory = gradeFactory;
-    }
-
     private String getType(Object value) {
         if (value instanceof Integer) {
             return  "Integer";
@@ -34,7 +26,7 @@ public class GradeDTOMapper {
         if (dto == null) { return null; }
 
         if (dto.getValueType().equals("Integer")) {
-            return gradeFactory.createIntGrade(
+            return new IntGrade(
                     Integer.valueOf(dto.getValue()),
                     dto.getCategory()
             );

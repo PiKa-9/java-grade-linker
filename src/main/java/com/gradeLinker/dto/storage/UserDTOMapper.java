@@ -1,19 +1,10 @@
 package com.gradeLinker.dto.storage;
 
-import com.gradeLinker.domain.UserFactory;
 import com.gradeLinker.domain.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDTOMapper {
-    private final UserFactory userFactory;
-
-    @Autowired
-    public UserDTOMapper(UserFactory userFactory) {
-        this.userFactory = userFactory;
-    }
-
     public UserDTO toDTO(User user) {
         return new UserDTO(
                 user.getUsername(),
@@ -27,7 +18,7 @@ public class UserDTOMapper {
 
     public User fromDTO(UserDTO dto) {
         if (dto == null) { return null; }
-        return userFactory.createUser(
+        return new User(
                 dto.getUsername(),
                 dto.getPasswordHash(),
                 dto.getRoles(),

@@ -1,7 +1,6 @@
 package com.gradeLinker.web;
 
 
-import com.gradeLinker.domain.UserFactory;
 import com.gradeLinker.repository.UsersRepository;
 import com.gradeLinker.service.PasswordHasher;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +25,6 @@ public class RegistrationControllerTest {
     private PasswordHasher hasher;
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private UserFactory userFactory;
 
     @MockBean
     private UsersRepository usersRepo;

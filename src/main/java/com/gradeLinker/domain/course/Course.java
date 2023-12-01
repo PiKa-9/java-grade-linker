@@ -7,7 +7,7 @@ public class Course {
     private String id;
     private String title;
     // { id of participant : data of participant }
-    //     participant data - the data in course which was build by interactions of the course with participant (or admin)
+    //     participants and grades - the data in course which was build by interactions of the course with participant (or admin)
     private Map<String, CourseParticipant> participants = new HashMap<>();
     private Map<String, GradeSet> grades = new HashMap<>();
 
@@ -23,6 +23,9 @@ public class Course {
     }
     public String getTitle() {
         return title;
+    }
+    public CourseParticipant getParticipantByUsername(String username) {
+        return participants.get(username);
     }
     public Map<String, CourseParticipant> getParticipants() {
         return participants;

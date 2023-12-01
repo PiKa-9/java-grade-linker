@@ -1,7 +1,6 @@
 package com.gradeLinker.web;
 
 
-import com.gradeLinker.domain.UserFactory;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.service.CourseService;
 import com.gradeLinker.service.PasswordHasher;
@@ -29,8 +28,6 @@ public class UserControllerTest {
     private PasswordHasher hasher;
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private UserFactory userFactory;
 
     @MockBean
     private UserService userService;

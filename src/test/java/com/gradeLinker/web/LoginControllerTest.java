@@ -1,6 +1,5 @@
 package com.gradeLinker.web;
 
-import com.gradeLinker.domain.UserFactory;
 import com.gradeLinker.domain.user.LoginUser;
 import com.gradeLinker.service.LoginService;
 import com.gradeLinker.service.PasswordHasher;
@@ -28,8 +27,6 @@ public class LoginControllerTest {
     private PasswordHasher hasher;
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private UserFactory userFactory;
 
     @MockBean
     private LoginService loginService;
@@ -41,7 +38,7 @@ public class LoginControllerTest {
     void setUp() {
         usernameT = "usernameT";
         passwordT = "passwordT";
-        user = userFactory.createLoginUser(
+        user = new LoginUser(
                 usernameT,
                 hasher.hash(passwordT)
         );
