@@ -1,0 +1,24 @@
+.left-tab {
+    flex-shrink: 0;
+    width: 20vw;
+    padding-left: 0.8vw;
+    padding-top: 8px;
+    padding-right: 2vw;
+}
+
+.btn-3 {
+    color: #949181;
+    font-family: 'Brush Script MT', cursive;
+    width: 100%;
+    margin: 2px;
+    margin-top: 5px;
+}
+
+.vertical-bar {
+    margin-right: 4vw;
+    flex-shrink: 0;
+    width: 0.5vw;
+    height: 98.5vh;
+    background-color: #232323;
+}
+

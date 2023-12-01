@@ -2,7 +2,6 @@ package com.gradeLinker.web;
 
 
 import com.gradeLinker.domain.UserFactory;
-import com.gradeLinker.dto.web.RegistrationResponse;
 import com.gradeLinker.repository.UsersRepository;
 import com.gradeLinker.service.PasswordHasher;
 import org.junit.jupiter.api.BeforeEach;

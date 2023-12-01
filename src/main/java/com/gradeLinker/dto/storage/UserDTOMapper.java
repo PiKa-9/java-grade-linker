@@ -7,17 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserDTOMapper {
-    @Autowired
-    private UserFactory userFactory;
+    private final UserFactory userFactory;
 
-    public User fromDTO(UserDTO dto) {
-        if (dto == null) { return null; }
-        return userFactory.createUser(
-                dto.getUsername(),
-                dto.getPasswordHash(),
-                dto.getFirstName(),
-                dto.getLastName()
-        );
+    @Autowired
+    public UserDTOMapper(UserFactory userFactory) {
+        this.userFactory = userFactory;
     }
 
     public UserDTO toDTO(User user) {
@@ -28,6 +22,18 @@ public class UserDTOMapper {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getCourseIds()
+        );
+    }
+
+    public User fromDTO(UserDTO dto) {
+        if (dto == null) { return null; }
+        return userFactory.createUser(
+                dto.getUsername(),
+                dto.getPasswordHash(),
+                dto.getRoles(),
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getCourseIds()
         );
     }
 }

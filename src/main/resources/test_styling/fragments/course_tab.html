@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="/static/css/fragments/course_tab.css">
+
+<div th:if="${courseTab}" id="course-tab">
+    <div class="course-link-div" th:each="courseLink : ${courseTab}">
+        <a class="course-link" th:href="'/c/' + ${courseLink.courseId}" th:text="${courseLink.text}">Math</a>
+        <hr>
+    </div>
+</div>

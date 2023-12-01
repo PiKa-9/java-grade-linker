@@ -1,0 +1,17 @@
+<link rel="stylesheet" th:href="@{/css/fragments/left_tab.css}">
+
+<div class="left-tab">
+    <div th:replace="~{/fragments/account_bar.html}"></div>
+    <div th:replace="~{/fragments/course_tab.html}"></div>
+
+    <form th:if="${join_course}" action="/join-course" method="get">
+        <button class="btn-3" type="submit">Join Course</button>
+    </form>
+
+    <form th:if="${create_course}" action="/create-course" method="get">
+        <button class="btn-3" type="submit">Create Course</button>
+    </form>
+</div>
+
+<div class="vertical-bar"></div>
+

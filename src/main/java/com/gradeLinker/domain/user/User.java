@@ -9,10 +9,11 @@ public class User extends LoginUser {
     private String lastName;
     private Set<String> courseIds = new HashSet<>(); // ids of courses with which interaction is allowed
 
-    public User(String username, int passwordHash, String firstName, String lastName) {
-        super(username, passwordHash);
+    public User(String username, int passwordHash, Set<String> roles, String firstName, String lastName, Set<String> courseIds) {
+        super(username, passwordHash, roles);
         this.firstName = firstName;
         this.lastName = lastName;
+        if (courseIds != null) { this.courseIds = courseIds; }
     }
 
 

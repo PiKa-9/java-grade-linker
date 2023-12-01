@@ -15,6 +15,11 @@ public class LoginUser {
         this.username = username;
         this.passwordHash = passwordHash;
     }
+    public LoginUser(String username, int passwordHash, Set<String> roles) {
+        this.username = username;
+        this.passwordHash = passwordHash;
+        if (roles != null) { this.roles = roles; }
+    }
 
     public String getUsername() {
         return username;

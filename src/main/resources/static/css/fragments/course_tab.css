@@ -1,0 +1,50 @@
+#course-tab {
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: 'Brush Script MT', cursive;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    overflow-y: auto;
+    margin-bottom: 5px;
+
+    color: #090909;
+
+    border-style: solid;
+    border-width: 2px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 20px 5px;
+    border-bottom-right-radius: 20px 5px;
+    border-top-left-radius: 0px 0px;
+    border-top-right-radius: 0px 0px;
+}
+#course-tab::-webkit-scrollbar {
+    width: 0.7em;
+}
+
+.course-link-div {
+    width: 100%;
+}
+.course-link {
+    width: 90%;
+    display: block;
+    color: #eeeeee;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    text-align: left;
+    padding: 5px;
+    cursor: pointer;
+}
+.course-link:hover {
+    border-style: ridge;
+    background-color: #555;
+}
+hr {
+    width: 95%;
+    border: 1px solid #000000;
+    margin: 0px 0px;
+}

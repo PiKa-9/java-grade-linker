@@ -1,0 +1,26 @@
+Order of methods in classes:
+
+1. READ (get, exists, ...)
+2. CHANGE (save, ...)
+3. DELETE (delete, ...)
+
+==================================
+
+Possible Roles:
+1. Course roles
+    - has-grades
+    - all-grade-viewer
+    - all-grade-changer
+
+2. General user roles
+    - admin
+    - create_course
+    - join_course
+
+
+==================================
+
+Dependency injection:
+in main/* : through constructor
+in test/* : through fields (for quicker test refactoring,
+                            since we can change the test-fields quite often)

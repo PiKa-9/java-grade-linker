@@ -1,6 +1,6 @@
 package com.gradeLinker.dto.web;
 
-public class RegistrationResponse {
+public class RegistrationRequest {
     private String username;
     private String type;
     private String firstName;
@@ -8,7 +8,7 @@ public class RegistrationResponse {
     private String password;
     private String confirmPassword;
 
-    public RegistrationResponse(String username, String type, String firstName, String lastName, String password, String confirmPassword) {
+    public RegistrationRequest(String username, String type, String firstName, String lastName, String password, String confirmPassword) {
         this.username = username;
         this.type = type;
         this.firstName = firstName;

@@ -3,7 +3,7 @@ package com.gradeLinker.web;
 import com.gradeLinker.domain.UserFactory;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.storage.UserDTOMapper;
-import com.gradeLinker.dto.web.RegistrationResponse;
+import com.gradeLinker.dto.web.RegistrationRequest;
 import com.gradeLinker.repository.UsersRepository;
 import com.gradeLinker.service.PasswordHasher;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.HashSet;
 
 
 @Controller
@@ -38,7 +40,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@ModelAttribute RegistrationResponse response, HttpSession session, Model model) {
+    public String registerPost(@ModelAttribute RegistrationRequest response, HttpSession session, Model model) {
         if (!response.getPassword().equals(response.getConfirmPassword())) {
             model.addAttribute("invalid", "Passwords aren't equal");
             return "pages/register.html";
@@ -53,8 +55,10 @@ public class RegistrationController {
         User user = userFactory.createUser(
                 response.getUsername(),
                 hasher.hash(response.getPassword()),
+                new HashSet<>(),
                 response.getFirstName(),
-                response.getLastName()
+                response.getLastName(),
+                new HashSet<>()
         );
 
         user.addRoles("join_course");
