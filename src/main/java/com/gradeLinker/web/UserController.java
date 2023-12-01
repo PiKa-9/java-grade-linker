@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -73,4 +74,16 @@ public class UserController {
             return "pages/error.html";
         }
     }
+    @PostMapping("/create-course")
+    public String createCoursePost(@RequestParam("courseTitle") String courseTitle, HttpServletRequest request, HttpSession session, Model model) {
+        User user = (User) request.getAttribute("user");
+        if (user == null) { return "redirect:/error"; }
+
+        // TODO
+
+        // Make so the course with 'courseTitle' is created + add current user to it
+
+        return "redirect:/h";
+    }
+
 }
