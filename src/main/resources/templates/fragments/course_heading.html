@@ -1,0 +1,16 @@
+<link rel="stylesheet" th:href="@{/css/fragments/course_heading.css}">
+
+<div id="heading">
+    <div class="course-title-container">
+        <h2 th:text="${courseHeading.courseTitle}"></h2>
+    </div>
+
+    <div class="course-id-container">
+        <span>Course id:</span><br>
+        <span th:text="${courseHeading.courseId}"></span>
+    </div>
+
+    <div th:replace="~{/fragments/logout_link.html}"></div>
+</div>
+
+<hr class="divider">

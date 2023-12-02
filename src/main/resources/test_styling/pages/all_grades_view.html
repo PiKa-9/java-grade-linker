@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/static/css/general.css">
+    <link rel="stylesheet" href="/static/css/pages/all_grades_view.css">
+    <link rel="stylesheet" href="/static/css/fragments/left_tab.css">
+    <link rel="stylesheet" href="/static/css/fragments/account_bar.css">
+    <link rel="stylesheet" href="/static/css/fragments/course_tab.css">
+    <link rel="stylesheet" href="/static/css/fragments/course_heading.css">
+    <link rel="stylesheet" href="/static/css/fragments/logout_link.css">
+
+    <title>GradeLinker</title>
+</head>
+<body>
+
+<div class="left-tab">
+    <!-- Account bar -->
+    <!-- ============================= -->
+    <div id="account-bar">
+        <!-- <img src="https://www.pngitem.com/pimgs/m/516-5167304_transparent-background-white-user-icon-png-png-download.png"> -->
+        <i class="fa-solid fa-user fa-2x"></i>
+        <span>Simple Blue</span>
+    </div>
+    <!-- ============================= -->
+
+
+    <!-- Course-tab -->
+    <!-- ============================= -->
+    <div id="course-tab">
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+        <div class="course-link-div">
+            <a class="course-link" href="#" name="course-link">Math</a>
+            <hr>
+        </div>
+    </div>
+    <!-- ============================= -->
+
+    <!-- Join/Create Course buttons -->
+    <!-- ============================= -->
+    <form action="/join-course" method="get">
+        <button class="btn-3" type="submit">Join Course</button>
+    </form>
+
+    <form action="/create-course" method="get">
+        <button class="btn-3" type="submit">Create Course</button>
+    </form>
+    <!-- ============================= -->
+</div>
+
+<div class="vertical-bar"></div>
+
+
+<div class="main">
+    <div id="heading">
+        <div class="course-title-container">
+            <h2>Math</h2>
+        </div>
+
+        <div class="course-id-container">
+            <span>Course id:</span><br>
+            <span>kf38Hd</span>
+        </div>
+
+        <div class="link-container">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="main-content">
+        // TODO
+    </div>
+</div>
+</body>
+</html>

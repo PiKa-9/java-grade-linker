@@ -1,0 +1,15 @@
+.course-title-container {
+    flex: 50%;
+}
+.course-id-container {
+    flex: 40%;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 10px;
+    border-right: 1px solid #090909;
+    border-left: 1px solid #090909;
+}
+.course-id-container span {
+    color: black;
+    float: right;
+}
