@@ -1,0 +1,14 @@
+.link-container {
+    flex: 10%;
+    align-self: right;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+}
+.link-container a {
+    margin-right: 10px;
+    color: #ff9f9f;
+    text-decoration: underline;
+    cursor: pointer;
+}

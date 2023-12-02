@@ -1,5 +1,6 @@
 body {
     display: flex;
+    flex-direction: row;
     background-color: #41403e;
     color: #fff;
     font-family: 'Brush Script MT', cursive;
@@ -16,6 +17,30 @@ body::-webkit-scrollbar-thumb {
     background-color: #727272;
     outline: 1px solid slategrey;
 }
+
+/* Main content positioning */
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Heading */
+#heading {
+    position: sticky;
+    left: 5vw;
+    height: 10vh;
+    width: 72.7vw;   /* 100 - 20(left-tab) - 6.5(vertical-bar space) - 0.8(left-tab left-margin) */
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+}
+.divider {
+    width: 99.8%;
+    border: 1px solid #090909;
+    margin: 0px 0px;
+}
+
 
 /* Borders */
 .border-0 {
