@@ -7,3 +7,5 @@
 
 3. Add support for Double and String grades
    (start in GradeDTOMapper)
+
+4. test_build
