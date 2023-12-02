@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/static/css/fragments/course_tab.css">
     <link rel="stylesheet" href="/static/css/fragments/course_heading.css">
     <link rel="stylesheet" href="/static/css/fragments/logout_link.css">
+    <link rel="stylesheet" href="/static/css/fragments/grade_table.css">
 
     <title>GradeLinker</title>
 </head>
@@ -104,7 +105,97 @@
     <hr class="divider">
 
     <div class="main-content">
-        // TODO
+
+        <table id="grade-table" class="grade-table" th:object="${gradeTable}">
+            <tr id="column-headers">
+                <th></th>
+                <th th:each="date, iStat: *{dates}">
+                    <span th:text="*{gradeCategories[__${iStat.index}__]}">ordinary</span>
+                    <br>
+                    <span th:text="${date}">01-01-2024</span>
+                    <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                    <input type="hidden" th:value="${date}" name="dates">
+                    <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                    <input type="hidden" th:value="*{gradeCategories[__${iStat.index}__]}" name="gradeCategories">
+                </th>
+                <th th:each="date, iStat: *{dates}">
+                    <span th:text="*{gradeCategories[__${iStat.index}__]}">ordinary</span>
+                    <br>
+                    <span th:text="${date}">02-01-2024</span>
+                    <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                    <input type="hidden" th:value="${date}" name="dates">
+                    <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                    <input type="hidden" th:value="*{gradeCategories[__${iStat.index}__]}" name="gradeCategories">
+                </th>
+                <th th:each="date, iStat: *{dates}">
+                    <span th:text="*{gradeCategories[__${iStat.index}__]}">ordinary</span>
+                    <br>
+                    <span th:text="${date}">03-01-2024</span>
+                    <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                    <input type="hidden" th:value="${date}" name="dates">
+                    <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                    <input type="hidden" th:value="*{gradeCategories[__${iStat.index}__]}" name="gradeCategories">
+                </th>
+            </tr>
+
+            <tr th:each="studentName, iStat : *{studentNames}">
+                <td class="first-col">
+                    <span th:text="${studentName}">Simple Student</span>
+                    <!-- store the 'gradeTable.studentUsernames' for post-request in hidden input -->
+                    <input type="hidden" th:value="*{studentUsernames[__${iStat.index}__]}" name="studentUsernames">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+            </tr>
+            <tr th:each="studentName, iStat : *{studentNames}">
+                <td class="first-col">
+                    <span th:text="${studentName}">Medium Student</span>
+                    <!-- store the 'gradeTable.studentUsernames' for post-request in hidden input -->
+                    <input type="hidden" th:value="*{studentUsernames[__${iStat.index}__]}" name="studentUsernames">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+            </tr>
+            <tr th:each="studentName, iStat : *{studentNames}">
+                <td class="first-col">
+                    <span th:text="${studentName}">Simple Green</span>
+                    <!-- store the 'gradeTable.studentUsernames' for post-request in hidden input -->
+                    <input type="hidden" th:value="*{studentUsernames[__${iStat.index}__]}" name="studentUsernames">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+                <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
+                    <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                    <input class="grade-input" type="number" th:value="${grade}" name="grades">
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

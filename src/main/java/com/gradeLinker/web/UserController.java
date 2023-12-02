@@ -6,6 +6,7 @@ import com.gradeLinker.dto.web.AccountViewDTOMapper;
 import com.gradeLinker.dto.web.CourseTabViewDTOMapper;
 import com.gradeLinker.repository.UsersRepository;
 import com.gradeLinker.service.CourseService;
+import com.gradeLinker.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     private final AccountViewDTOMapper accountDTOMapper;
     private final CourseTabViewDTOMapper courseTabDTOMapper;
+    private final UserService userService;
     private final CourseService courseService;
 
     @Autowired
-    public UserController(AccountViewDTOMapper accountDTOMapper, CourseTabViewDTOMapper courseTabDTOMapper, CourseService courseService) {
+    public UserController(AccountViewDTOMapper accountDTOMapper, CourseTabViewDTOMapper courseTabDTOMapper, UserService userService, CourseService courseService) {
         this.accountDTOMapper = accountDTOMapper;
         this.courseTabDTOMapper = courseTabDTOMapper;
+        this.userService = userService;
         this.courseService = courseService;
     }
 
     @GetMapping("/h")
-    public String homePage(HttpServletRequest request, HttpSession session, Model model) {
-        User user = (User) request.getAttribute("user");
+    public String homePage(HttpSession session, Model model) {
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
         if (user == null) { return "redirect:/error"; }
 
         model.addAttribute("account", accountDTOMapper.toDTO(user));
@@ -51,8 +54,8 @@ public class UserController {
     }
 
     @GetMapping("/join-course")
-    public String joinCourse(HttpServletRequest request, HttpSession session, Model model) {
-        User user = (User) request.getAttribute("user");
+    public String joinCourse(HttpSession session, Model model) {
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
         if (user == null) { return "redirect:/error"; }
 
         if (user.hasRole("join_course")) {
@@ -63,8 +66,8 @@ public class UserController {
     }
 
     @GetMapping("/create-course")
-    public String createCourse(HttpServletRequest request, HttpSession session, Model model) {
-        User user = (User) request.getAttribute("user");
+    public String createCourse(HttpSession session, Model model) {
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
         if (user == null) { return "redirect:/error"; }
 
         if (user.hasRole("create_course")) {

@@ -1,25 +1,19 @@
 package com.gradeLinker.web.filter;
 
-import com.gradeLinker.domain.user.User;
-import com.gradeLinker.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
+@Order(1)
 public class UserFilter implements Filter {
-    private final UserService userService;
 
-    @Autowired
-    public UserFilter(UserService userService) {
-        this.userService = userService;
-    }
-
+    /* Filter for checking if user session is valid */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -37,8 +31,6 @@ public class UserFilter implements Filter {
             return;
         }
 
-        User user = userService.getUserByUsername(username);
-        request.setAttribute("user", user);
         chain.doFilter(request, response);
     }
 }

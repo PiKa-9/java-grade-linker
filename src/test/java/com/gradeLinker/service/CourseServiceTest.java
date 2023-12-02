@@ -1,6 +1,7 @@
 package com.gradeLinker.service;
 
 
+import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.dto.storage.CourseDTO;
 import com.gradeLinker.repository.CourseRepository;
@@ -13,14 +14,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.AdditionalMatchers.not;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class CourseServiceTest {
+    @Autowired
+    private GradeFactory gradeFactory;
     @Autowired
     private CourseService courseService;
 
@@ -33,13 +32,13 @@ public class CourseServiceTest {
                 "course-id-1T",
                 null,
                 new HashSet<>(),
-                new HashMap<>()
+                null
         );
         CourseDTO courseDTO2 = new CourseDTO(
                 "course-id-2T",
                 null,
                 new HashSet<>(),
-                new HashMap<>()
+                null
         );
 
         when(courseRepo.getById("course-id-1T")).thenReturn(courseDTO1);

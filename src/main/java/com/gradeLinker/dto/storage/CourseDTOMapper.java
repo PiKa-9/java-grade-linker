@@ -1,25 +1,24 @@
 package com.gradeLinker.dto.storage;
 
+import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseParticipant;
-import com.gradeLinker.domain.course.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class CourseDTOMapper {
+    private final GradeFactory gradeFactory;
     private final CourseParticipantDTOMapper courseParticipantDTOMapper;
-    private final GradeSetDTOMapper gradeSetDTOMapper;
+    private final CourseGradesDTOMapper courseGradesDTOMapper;
 
     @Autowired
-    public CourseDTOMapper(CourseParticipantDTOMapper courseParticipantDTOMapper, GradeSetDTOMapper gradeSetDTOMapper) {
+    public CourseDTOMapper(GradeFactory gradeFactory, CourseParticipantDTOMapper courseParticipantDTOMapper, CourseGradesDTOMapper courseGradesDTOMapper) {
+        this.gradeFactory = gradeFactory;
         this.courseParticipantDTOMapper = courseParticipantDTOMapper;
-        this.gradeSetDTOMapper = gradeSetDTOMapper;
+        this.courseGradesDTOMapper = courseGradesDTOMapper;
     }
 
     public CourseDTO toDTO(Course course) {
@@ -28,53 +27,30 @@ public class CourseDTOMapper {
             participantsDTO.add(courseParticipantDTOMapper.toDTO(participant));
         }
 
-        Map<String, GradeSetDTO> gradesMap = new HashMap<>();
-        for (String username: course.getGrades().keySet()) {
-            gradesMap.put(
-                    username,
-                    gradeSetDTOMapper.toDTO(course.getGrades().get(username))
-            );
-        }
-
         return new CourseDTO(
                 course.getId(),
                 course.getTitle(),
                 participantsDTO,
-                gradesMap
+                courseGradesDTOMapper.toDTO(course.getCourseGrades())
         );
     }
 
     public Course fromDTO(CourseDTO dto) {
         if (dto == null) { return null; }
-        Course course = new Course(
-                dto.getId(),
-                dto.getTitle(),
-                new HashMap<>(),
-                new HashMap<>()
-        );
 
         Map<String, CourseParticipant> participants = new HashMap<>();
         for (CourseParticipantDTO participantDTO: dto.getParticipants()) {
-            if (course.getGrades().get(participantDTO.getUsername()) == null) {
-                /* participant without grades */
-                CourseParticipant participant = new CourseParticipant(
-                        participantDTO.getUsername(),
-                        participantDTO.getRoles()
-                );
-
-                course.addParticipant(participant);
-            } else {
-                /* participant with grades */
-                Student participant = new Student(
-                        participantDTO.getUsername(),
-                        participantDTO.getRoles(),
-                        course.getGrades().get(participantDTO.getUsername())
-                );
-
-                course.addParticipant(participant);
-            }
+            participants.put(
+                    participantDTO.getUsername(),
+                    courseParticipantDTOMapper.fromDTO(participantDTO)
+            );
         }
 
-        return course;
+        return new Course(
+                dto.getId(),
+                dto.getTitle(),
+                participants,
+                courseGradesDTOMapper.fromDTO(dto.getCourseGrades())
+        );
     }
 }

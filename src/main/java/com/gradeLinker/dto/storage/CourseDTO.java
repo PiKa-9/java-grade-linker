@@ -9,13 +9,13 @@ public class CourseDTO {
     private String id;
     private String title;
     private Set<CourseParticipantDTO> participants;
-    private Map<String, GradeSetDTO> grades;
+    private CourseGradesDTO courseGrades;
 
-    public CourseDTO(@JsonProperty("id") String id, @JsonProperty("title") String title, @JsonProperty("participants") Set<CourseParticipantDTO> participants, @JsonProperty("grades") Map<String, GradeSetDTO> grades) {
+    public CourseDTO(@JsonProperty("id") String id, @JsonProperty("title") String title, @JsonProperty("participants") Set<CourseParticipantDTO> participants, @JsonProperty("courseGrades") CourseGradesDTO courseGrades) {
         this.id = id;
         this.title = title;
         this.participants = participants;
-        this.grades = grades;
+        this.courseGrades = courseGrades;
     }
 
     public String getId() {
@@ -27,7 +27,7 @@ public class CourseDTO {
     public Set<CourseParticipantDTO> getParticipants() {
         return participants;
     }
-    public Map<String, GradeSetDTO> getGrades() {
-        return grades;
+    public CourseGradesDTO getCourseGrades() {
+        return courseGrades;
     }
 }

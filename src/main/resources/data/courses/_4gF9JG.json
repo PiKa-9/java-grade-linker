@@ -8,8 +8,25 @@
     "username" : "user2",
     "roles" : [ "has-grades" ]
   } ],
-  "grades": {
-    "user1": {},
-    "user2": {}
+  "courseGrades": {
+    "studentUsernames": [ "user2" ],
+    "gradeInfoList": [
+      {
+      "category": "ordinary",
+      "date": "01-01-2024"
+      },
+      {
+        "category": "ordinary",
+        "date": "01-01-2024"
+      },
+      {
+        "category": "ordinary",
+        "date": "01-01-2024"
+      }],
+    "grades": [
+      [ 50 ],
+      [ 60 ],
+      [ 100 ]
+    ]
   }
 }

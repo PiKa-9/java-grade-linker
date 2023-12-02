@@ -1,6 +1,7 @@
 package com.gradeLinker.web;
 
 
+import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseParticipant;
 import com.gradeLinker.domain.user.User;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -25,6 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CourseControllerTest {
+    @Autowired
+    private GradeFactory gradeFactory;
     @Autowired
     private MockMvc mockMvc;
 
@@ -53,6 +57,7 @@ public class CourseControllerTest {
         );
         participant = new CourseParticipant(
                 usernameT,
+                null,
                 new HashSet<>()
         );
         courseId = "course-idT";
@@ -60,7 +65,7 @@ public class CourseControllerTest {
                 courseId,
                 null,
                 new HashMap<>(),
-                new HashMap<>()
+                gradeFactory.createCourseGrades(new ArrayList<>())
         );
 
         when(userService.getUserByUsername(usernameT)).thenReturn(user);
@@ -106,5 +111,17 @@ public class CourseControllerTest {
                 .andExpect(view().name("pages/error.html"));
 
         verify(courseService, times(1)).getCourseById(courseId);
+    }
+
+    @Test
+    void ShouldDisplayAllGradesView() throws Exception {
+        participant.addRoles("all-grade-viewer");
+        course.addParticipant(participant);
+        when(courseService.getCourseById(anyString())).thenReturn(course);
+
+        mockMvc.perform(get("/c/{course_id}/all-grades", courseId).session(session))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pages/all_grades_view.html"))
+                .andExpect(model().attributeExists("courseHeading", "gradeTable"));
     }
 }

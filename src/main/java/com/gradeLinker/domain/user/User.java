@@ -23,6 +23,9 @@ public class User extends LoginUser {
     public String getLastName() {
         return lastName;
     }
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
     public boolean hasCourseId(String courseId) {return courseIds.contains(courseId);}
     public Set<String> getCourseIds() {
         return courseIds;
