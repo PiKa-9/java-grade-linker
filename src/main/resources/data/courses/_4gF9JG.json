@@ -12,7 +12,7 @@
     "roles" : [ "all-grade-viewer", "all-grade-changer" ]
   } ],
   "courseGrades" : {
-    "studentUsernames" : [ "user3", "user2", "user2" ],
+    "studentUsernames" : [ "user3", "user2" ],
     "gradeInfoList" : [ {
       "category" : "ordinary",
       "date" : "01-01-2024"
@@ -25,10 +25,7 @@
     }, {
       "category" : "ordinary",
       "date" : "11-05-2024"
-    }, {
-      "category" : "ordinary",
-      "date" : "df"
     } ],
-    "grades" : [ [ 34.0, 45.0, null ], [ 4.0, 32.0, null ], [ 32.0, 0.0, null ], [ 98.0, 100.0, null ], [ null, null, null ] ]
+    "grades" : [ [ 34.0, 45.0 ], [ 4.0, 32.0 ], [ 32.0, 0.0 ], [ 98.0, 100.0 ] ]
   }
 }

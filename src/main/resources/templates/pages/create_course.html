@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/create_course.css}">
+
+    <title>GradeLinker</title>
 </head>
 <body>
+<a class="back-link" href="/h"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to homepage</a>
 
+<h2 class="heading">Create Course</h2>
+
+<form class="form-0" action="/create-course" method="post">
+    <div class="form-group">
+        <label for="title-field">Title of the course:</label>
+        <input id="title-field" class="form-control" type="text" name="courseTitle" placeholder="Course Title" required>
+    </div>
+
+    <input class="btn-0" type="submit" value="Create Course">
+</form>
+
+
+<div class="blockquote">
+    <h1>Education is one thing no one can take away from you.</h1>
+    <h4>&mdash;</h4>
+</div>
 </body>
 </html>

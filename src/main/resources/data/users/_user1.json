@@ -1,8 +1,8 @@
 {
   "username" : "user1",
-  "roles" : [ "create_course", "join_course" ],
   "passwordHash" : 49,
+  "roles" : [ "create_course", "join_course" ],
   "firstName" : "Simple",
   "lastName" : "Teacher",
-  "courseIds" : [ "4gF9JG" ]
+  "courseIds" : [ "eYA4By", "4gF9JG" ]
 }

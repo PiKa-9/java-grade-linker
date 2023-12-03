@@ -119,4 +119,19 @@ public class CourseServiceTest {
 
         verify(courseRepo, times(1)).save(eq("course-id-1T"), any());
     }
+
+    @Test
+    void ShouldCreateCourse() {
+        String returnedId = courseService.createCourse(
+                "course-titleT",
+                new CourseParticipant(
+                        "usernameT",
+                        "full-nameT",
+                        new HashSet<>(Arrays.asList("all-grade-viewer", "all-grade-changer"))
+                )
+        );
+
+        assertEquals(6, returnedId.length());
+        verify(courseRepo, times(1)).save(anyString(), any());
+    }
 }

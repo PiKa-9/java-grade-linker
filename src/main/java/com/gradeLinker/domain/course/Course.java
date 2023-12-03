@@ -33,6 +33,7 @@ public class Course {
     }
 
     public void addParticipant(CourseParticipant participant) {
+        if (participants.get(participant.getUsername()) != null) { return; }
         participants.put(participant.getUsername(), participant);
 
         if (participant instanceof Student) {

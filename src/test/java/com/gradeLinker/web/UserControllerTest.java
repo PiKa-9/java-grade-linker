@@ -160,6 +160,8 @@ public class UserControllerTest {
                 .andExpect(view().name("pages/join_course.html"));
     }
 
+
+
     @Test
     void ShouldBeAbleToCreateCourse() throws Exception {
         user.addRoles("create_course");
@@ -173,6 +175,32 @@ public class UserControllerTest {
     void ShouldNotBeAbleToCreateCourse() throws Exception {
         /* User doesn't have 'create_course' role */
         this.mockMvc.perform(get("/create-course").session(session))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pages/error.html"));
+    }
+    @Test
+    void ShouldCreateCourse() throws Exception {
+        user.addRoles("create_course");
+        when(userService.getUserByUsername(usernameT)).thenReturn(user);
+
+        this.mockMvc.perform(post("/create-course").session(session)
+                        .param("courseTitle", "course-titleT")
+                )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("/c/*"));
+
+        verify(courseService, times(1)).createCourse(
+                eq("course-titleT"),
+                any()
+        );
+        verify(userService, times(1)).saveUser(any());
+    }
+    @Test
+    void ShouldNotCreateCourse() throws Exception {
+        /* User doesn't have 'create_course' role */
+        this.mockMvc.perform(post("/create-course").session(session)
+                        .param("courseTitle", "course-titleT")
+                )
                 .andExpect(status().isOk())
                 .andExpect(view().name("pages/error.html"));
     }

@@ -1,0 +1,19 @@
+{
+  "id" : "eYA4By",
+  "title" : "Physics",
+  "participants" : [ {
+    "username" : "user1",
+    "roles" : [ "all-grade-viewer", "all-grade-changer" ]
+  }, {
+    "username" : "user2",
+    "roles" : [ "has-grades" ]
+  } ],
+  "courseGrades" : {
+    "studentUsernames" : [ "user2" ],
+    "gradeInfoList" : [ {
+      "category" : "ordinary",
+      "date" : "03-01-2024"
+    } ],
+    "grades" : [ [ null ] ]
+  }
+}

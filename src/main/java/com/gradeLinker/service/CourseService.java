@@ -1,29 +1,34 @@
 package com.gradeLinker.service;
 
+import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseGrades;
 import com.gradeLinker.domain.course.CourseParticipant;
 import com.gradeLinker.domain.course.Student;
+import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.storage.CourseDTOMapper;
 import com.gradeLinker.repository.CourseRepository;
 import com.gradeLinker.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CourseService {
+    private final Object lock = new Object();
+    private final IdGenerator<String> idGenerator;
+
     private final CourseDTOMapper courseDTOMapper;
+    private final GradeFactory gradeFactory;
     private final CourseRepository courseRepo;
     private final UsersRepository usersRepo;
 
     @Autowired
-    public CourseService(CourseDTOMapper courseDTOMapper, CourseRepository courseRepo, UsersRepository usersRepo) {
+    public CourseService(IdGenerator<String> idGenerator, CourseDTOMapper courseDTOMapper, GradeFactory gradeFactory, CourseRepository courseRepo, UsersRepository usersRepo) {
+        this.idGenerator = idGenerator;
         this.courseDTOMapper = courseDTOMapper;
+        this.gradeFactory = gradeFactory;
         this.courseRepo = courseRepo;
         this.usersRepo = usersRepo;
     }
@@ -70,7 +75,34 @@ public class CourseService {
         );
     }
 
+    private String generateUniqueCourseId() {
+        synchronized (lock) {
+            String id = "";
+            do {
+                id = idGenerator.generateId();
+            }
+            while (courseRepo.existsById(id));
 
+            return id;
+        }
+    }
+    public String createCourse(String title, CourseParticipant participant) {
+        // object-lock here, so different users couldn't generate the same id
+        String id = this.generateUniqueCourseId();
+
+        Course course = new Course(
+                id,
+                title,
+                Map.of(
+                        participant.getUsername(),
+                        participant
+                ),
+                gradeFactory.createCourseGrades(new ArrayList<>())
+        );
+        this.saveCourse(course);
+
+        return id;
+    }
     public void saveCourse(Course course) {
         courseRepo.save(course.getId(), courseDTOMapper.toDTO(course));
     }

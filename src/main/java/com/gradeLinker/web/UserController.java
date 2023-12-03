@@ -2,6 +2,7 @@ package com.gradeLinker.web;
 
 
 import com.gradeLinker.domain.course.Course;
+import com.gradeLinker.domain.course.CourseParticipant;
 import com.gradeLinker.domain.course.Student;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.web.AccountViewDTOMapper;
@@ -107,5 +108,24 @@ public class UserController {
             return "pages/error.html";
         }
     }
+    @PostMapping("/create-course")
+    public String createCoursePost(@RequestParam("courseTitle") String courseTitle, HttpSession session, Model model) {
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
+        if (user == null) { return "redirect:/error"; }
 
+        if (!user.hasRole("create_course")) { return "pages/error.html"; }
+        String courseId = courseService.createCourse(
+                courseTitle,
+                new CourseParticipant(
+                        user.getUsername(),
+                        user.getFullName(),
+                        new HashSet<>(Arrays.asList("all-grade-viewer", "all-grade-changer"))
+                )
+        );
+
+        user.addCourseIds(courseId);
+        userService.saveUser(user);
+
+        return String.format("redirect:/c/%s", courseId);
+    }
 }

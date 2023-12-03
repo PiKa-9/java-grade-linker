@@ -70,6 +70,7 @@ public class CourseGradesImpl implements CourseGrades {
     }
     @Override
     public void addStudent(Student student) {
+        if (studentUsernames.contains(student.getUsername())) { return; }
         studentUsernames.add(student.getUsername());
         List<Double> studentGrades = student.getStudentGrades();
         if (studentGrades == null) {

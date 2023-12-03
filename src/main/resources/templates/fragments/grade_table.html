@@ -5,8 +5,8 @@
         <tr id="column-headers">
             <th></th>
             <th th:each="date, iStat: *{dates}">
-                <span th:text="*{gradeCategories[__${iStat.index}__]}"></span>
-                <br>
+                <!-- <span th:text="*{gradeCategories[__${iStat.index}__]}"></span> -->
+                <!-- <br> -->
                 <span th:text="${date}"></span>
                 <!-- store the 'gradeTable.dates' for post-request in hidden input -->
                 <input type="hidden" th:value="${date}" name="dates">
