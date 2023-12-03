@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CourseController {
@@ -93,6 +94,34 @@ public class CourseController {
         model.addAttribute("gradeTable", gradeTableViewDTOMapper.toDTO(course));
 
         return "pages/all_grades_view.html";
+    }
+
+    @GetMapping("/c/{course_id}/own-grades")
+    public String ownGradesView(@PathVariable("course_id") String courseId, HttpSession session, Model model) {
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
+        if (user == null) {
+            return "redirect:/error";
+        }
+
+        Course course = courseService.getCourseById(courseId);
+        if (course == null) {
+            return "redirect:/error";
+        }
+
+        CourseParticipant participant = course.getParticipantByUsername(user.getUsername());
+        if (participant == null) {
+            return "redirect/error";
+        }
+        if (!participant.hasRoles("has-grades")) { return "pages/error.html"; }
+
+        this.setLeftTab(model, user);
+        model.addAttribute("courseHeading", new CourseHeadingViewDTO(
+                course.getId(),
+                course.getTitle()
+        ));
+        model.addAttribute("gradeTable", gradeTableViewDTOMapper.toDTO(course, participant.getUsername()));
+
+        return "pages/own_grades_view.html";
     }
 
 }

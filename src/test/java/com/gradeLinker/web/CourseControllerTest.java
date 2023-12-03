@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -34,7 +35,7 @@ public class CourseControllerTest {
 
     @MockBean
     private UserService userService;
-    @MockBean
+    @SpyBean
     private CourseService courseService;
 
     private MockHttpSession session;
@@ -57,13 +58,13 @@ public class CourseControllerTest {
         );
         participant = new CourseParticipant(
                 usernameT,
-                null,
+                "full-nameT",
                 new HashSet<>()
         );
         courseId = "course-idT";
         course = new Course(
                 courseId,
-                null,
+                "course-titleT",
                 new HashMap<>(),
                 gradeFactory.createCourseGrades(new ArrayList<>())
         );
@@ -122,6 +123,18 @@ public class CourseControllerTest {
         mockMvc.perform(get("/c/{course_id}/all-grades", courseId).session(session))
                 .andExpect(status().isOk())
                 .andExpect(view().name("pages/all_grades_view.html"))
+                .andExpect(model().attributeExists("courseHeading", "gradeTable"));
+    }
+
+    @Test
+    void ShouldDisplayOwnGradesView() throws Exception {
+        participant.addRoles("has-grades");
+        course.addParticipant(participant);
+        when(courseService.getCourseById(anyString())).thenReturn(course);
+
+        mockMvc.perform(get("/c/{course_id}/own-grades", courseId).session(session))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pages/own_grades_view.html"))
                 .andExpect(model().attributeExists("courseHeading", "gradeTable"));
     }
 }

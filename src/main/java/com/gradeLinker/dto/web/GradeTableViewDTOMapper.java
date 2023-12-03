@@ -19,6 +19,7 @@ public class GradeTableViewDTOMapper {
 
     private List<String> toString(List<Double> list) {
         List<String> result = new ArrayList<>();
+        if (list == null) { return result; }
         for (Double ele: list) {
             if (ele == null) {
                 result.add(null);
@@ -49,6 +50,39 @@ public class GradeTableViewDTOMapper {
             /* Be careful, the grade order should be the same sa in grade table */
             grades.add(toString(student.getStudentGrades()));
         }
+        for (GradeInfo gradeInfo: courseGrades.getGradeInfoList()) {
+            dates.add(gradeInfo.getDate());
+            gradeCategories.add(gradeInfo.getCategory());
+        }
+
+        return new GradeTableViewDTO(
+                studentUsernames,
+                studentFullNames,
+                dates,
+                gradeCategories,
+                grades
+        );
+    }
+
+    public GradeTableViewDTO toDTO(Course course, String studentUsername) {
+        CourseGrades courseGrades = course.getCourseGrades();
+        /* Sort grades by date */
+        courseGrades.sortGradesByDate();
+
+        Student student = courseService.getStudentByUsername(course, studentUsername);
+
+        List<String> studentUsernames = new ArrayList<>();
+        List<String> studentFullNames = new ArrayList<>();
+        List<String> dates = new ArrayList<>();
+        List<String> gradeCategories = new ArrayList<>();
+        List<List<String>> grades = new ArrayList<>();
+
+
+        studentUsernames.add(student.getUsername());
+        studentFullNames.add(student.getFullName());
+        /* Be careful, the grade order should be the same sa in grade table */
+        grades.add(toString(student.getStudentGrades()));
+
         for (GradeInfo gradeInfo: courseGrades.getGradeInfoList()) {
             dates.add(gradeInfo.getDate());
             gradeCategories.add(gradeInfo.getCategory());

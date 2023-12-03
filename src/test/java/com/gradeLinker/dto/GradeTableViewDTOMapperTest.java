@@ -86,4 +86,23 @@ public class GradeTableViewDTOMapperTest {
                         Arrays.asList("25.0", "75.0", "90.5")
                 ));
     }
+
+    @Test
+    void ShouldGetSingleStudentGradeTableDTOFromCourse() {
+        GradeTableViewDTO dto = gradeTableViewDTOMapper.toDTO(course, "user1T");
+
+        assertThat(dto.getStudentUsernames())
+                .usingRecursiveComparison()
+                .isEqualTo(Arrays.asList("user1T"));
+
+        assertThat(dto.getDates())
+                .usingRecursiveComparison()
+                .isEqualTo(Arrays.asList("01-01-2024", "02-01-2024", "03-01-2024"));
+
+        assertThat(dto.getGrades())
+                .usingRecursiveComparison()
+                .isEqualTo(Arrays.asList(
+                        Arrays.asList("100.0", null, "73.0")
+                ));
+    }
 }

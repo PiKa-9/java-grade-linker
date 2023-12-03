@@ -58,4 +58,15 @@ public class CourseService {
         }
         return students;
     }
+
+    public Student getStudentByUsername(Course course, String studentUsername) {
+        CourseParticipant participant = course.getParticipantByUsername(studentUsername);
+
+        return new Student(
+                participant.getUsername(),
+                participant.getFullName(),
+                participant.getRoles(),
+                course.getCourseGrades().getGradesByUsername(studentUsername)
+        );
+    }
 }
