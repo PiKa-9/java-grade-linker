@@ -7,9 +7,12 @@
   }, {
     "username" : "user2",
     "roles" : [ "has-grades" ]
+  }, {
+    "username" : "user3",
+    "roles" : [ "has-grades" ]
   } ],
   "courseGrades": {
-    "studentUsernames": [ "user2" ],
+    "studentUsernames": [ "user2", "user3" ],
     "gradeInfoList": [
       {
       "category": "ordinary",
@@ -17,16 +20,16 @@
       },
       {
         "category": "ordinary",
-        "date": "01-01-2024"
+        "date": "01-02-2024"
       },
       {
         "category": "ordinary",
-        "date": "01-01-2024"
+        "date": "11-05-2024"
       }],
     "grades": [
-      [ 50 ],
-      [ 60 ],
-      [ 100 ]
+      [ 50, null ],
+      [ 60, 78.5 ],
+      [ 100, 98 ]
     ]
   }
 }

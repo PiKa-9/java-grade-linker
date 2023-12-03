@@ -1,12 +1,9 @@
 package com.gradeLinker.domain.course;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /* Making simple List implementation since we need grade-table only for displaying it,
-   and reading it from save-grade-table request */
+   and adding a 'date' column */
 public class CourseGradesImpl implements CourseGrades {
     private List<String> studentUsernames;
     private List<GradeInfo> gradeInfoList;
@@ -28,7 +25,6 @@ public class CourseGradesImpl implements CourseGrades {
     public List<String> getStudentUsernames() {
         return studentUsernames;
     }
-
     @Override
     public List<Double> getGradesByUsername(String username) {
         int studentId = studentUsernames.indexOf(username);
@@ -40,18 +36,32 @@ public class CourseGradesImpl implements CourseGrades {
         }
         return studentGrades;
     }
-
     @Override
     public List<Double> getGradesByGradeInfoId(int i) {
         return grades.get(i);
     }
 
+
+    @Override
+    public void sortGradesByDate() {
+        for (int i = 0; i < gradeInfoList.size(); ++i) {
+            gradeInfoList.get(i).setId(i);
+        }
+
+        Collections.sort(gradeInfoList);
+
+        List<List<Double>> sortedGrades =  new ArrayList<>();
+        for (GradeInfo gradeInfo : gradeInfoList) {
+            sortedGrades.add(grades.get(gradeInfo.getId()));
+        }
+
+        grades = sortedGrades;
+    }
     @Override
     public void add(GradeInfo gradeInfo, List<Double> gradeValues) {
         gradeInfoList.add(gradeInfo);
         grades.add(gradeValues);
     }
-
     @Override
     public void addStudent(Student student) {
         studentUsernames.add(student.getUsername());

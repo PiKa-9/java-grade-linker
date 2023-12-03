@@ -1,9 +1,5 @@
-1. public List<Grade<V>> getGradesSorted()
-   Make the sorting right
-
-2. Make so courses are sorted by title in the courseTab
+1. Make so courses are sorted by title in the courseTab
    in the following CourseService method
    List<Course> getCoursesByIds(Set<String> courseIds)
-
-3. Add support for Double and String grades
-   (start in GradeDTOMapper)
+2. Make interfaces where needed:
+    Student, Course

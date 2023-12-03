@@ -3,7 +3,7 @@ package com.gradeLinker.domain.course;
 import java.util.Arrays;
 import java.util.Set;
 
-public class CourseParticipant {
+public class CourseParticipant implements Comparable<CourseParticipant> {
     private String username;
     private String fullName;
     private Set<String> roles; // course-roles
@@ -12,6 +12,14 @@ public class CourseParticipant {
         this.username = username;
         this.fullName = fullName;
         this.roles = roles;
+    }
+
+    @Override
+    public int compareTo(CourseParticipant o) {
+        if (fullName.equals(o.fullName)) {
+            return username.compareTo(o.getUsername());
+        }
+        return fullName.compareTo(o.getFullName());
     }
 
     public String getUsername() {

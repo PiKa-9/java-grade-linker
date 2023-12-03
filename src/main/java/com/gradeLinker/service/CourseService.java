@@ -1,6 +1,9 @@
 package com.gradeLinker.service;
 
 import com.gradeLinker.domain.course.Course;
+import com.gradeLinker.domain.course.CourseGrades;
+import com.gradeLinker.domain.course.CourseParticipant;
+import com.gradeLinker.domain.course.Student;
 import com.gradeLinker.dto.storage.CourseDTOMapper;
 import com.gradeLinker.repository.CourseRepository;
 import com.gradeLinker.repository.UsersRepository;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -34,5 +38,24 @@ public class CourseService {
         }
 
         return courses;
+    }
+    public List<Student> getStudentsSortedByFullName(Course course) {
+        List<Student> students = new ArrayList<>();
+
+        List<CourseParticipant> participants = new ArrayList<>(course.getParticipants().values().stream().toList());
+        Collections.sort(participants);
+
+        CourseGrades courseGrades = course.getCourseGrades();
+        for (CourseParticipant participant: participants) {
+            if (courseGrades.getStudentUsernames().contains(participant.getUsername())) {
+                students.add(new Student(
+                        participant.getUsername(),
+                        participant.getFullName(),
+                        participant.getRoles(),
+                        courseGrades.getGradesByUsername(participant.getUsername())
+                ));
+            }
+        }
+        return students;
     }
 }

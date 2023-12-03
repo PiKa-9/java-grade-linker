@@ -8,6 +8,8 @@ public interface CourseGrades {
     List<Double> getGradesByUsername(String username);
     List<Double> getGradesByGradeInfoId(int i);
 
+    void sortGradesByDate();
+
     void add(GradeInfo gradeInfo, List<Double> gradeValues);
     void addStudent(Student student);
 }

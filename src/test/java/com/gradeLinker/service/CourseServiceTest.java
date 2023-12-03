@@ -3,7 +3,14 @@ package com.gradeLinker.service;
 
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
+import com.gradeLinker.domain.course.CourseGrades;
+import com.gradeLinker.domain.course.CourseParticipant;
+import com.gradeLinker.domain.course.GradeInfo;
+import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.storage.CourseDTO;
+import com.gradeLinker.dto.storage.CourseGradesDTO;
+import com.gradeLinker.dto.storage.CourseParticipantDTO;
+import com.gradeLinker.dto.storage.GradeInfoDTO;
 import com.gradeLinker.repository.CourseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,25 +31,65 @@ public class CourseServiceTest {
     private CourseService courseService;
 
     @MockBean
+    private UserService userService;
+
+    @MockBean
     private CourseRepository courseRepo;
 
     @BeforeEach
     void setUp() {
+        Set<CourseParticipantDTO> participants = new HashSet<>();
+        participants.add(new CourseParticipantDTO(
+                "user1T",
+                new HashSet<>(Arrays.asList("all-grade-viewer", "all-grade-changer"))
+        ));
+        participants.add(new CourseParticipantDTO(
+                "user2T",
+                new HashSet<>(Arrays.asList("has-grades"))
+        ));
+
+        CourseGradesDTO courseGradesDTO = new CourseGradesDTO(
+                Arrays.asList("user2T"),
+                Arrays.asList(new GradeInfoDTO("ordinary", "01-01-2024")),
+                Arrays.asList(
+                        Arrays.asList(100.0)
+                )
+        );
+
         CourseDTO courseDTO1 = new CourseDTO(
                 "course-id-1T",
-                null,
-                new HashSet<>(),
-                null
+                "course-title-1T",
+                participants,
+                courseGradesDTO
         );
         CourseDTO courseDTO2 = new CourseDTO(
                 "course-id-2T",
-                null,
-                new HashSet<>(),
-                null
+                "course-title-2T",
+                participants,
+                courseGradesDTO
         );
 
         when(courseRepo.getById("course-id-1T")).thenReturn(courseDTO1);
         when(courseRepo.getById("course-id-2T")).thenReturn(courseDTO2);
+
+        when(userService.getUserByUsername("user1T")).thenReturn(
+                new User(
+                        "user1T",
+                        0,
+                        new HashSet<>(Arrays.asList("all-grade-viewer")),
+                        null, null,
+                        new HashSet<>(Arrays.asList("course-id-1T", "course-id-2T"))
+                )
+        );
+        when(userService.getUserByUsername("user2T")).thenReturn(
+                new User(
+                        "user2T",
+                        0,
+                        new HashSet<>(Arrays.asList("has-grades")),
+                        null, null,
+                        new HashSet<>(Arrays.asList("course-id-1T", "course-id-2T"))
+                )
+        );
     }
 
     @Test
