@@ -1,6 +1,7 @@
 package com.gradeLinker.web;
 
 
+import com.gradeLinker.domain.CourseFactory;
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseGrades;
@@ -34,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CourseControllerTest {
     @Autowired
     private GradeFactory gradeFactory;
+    @Autowired
+    private CourseFactory courseFactory;
     @Autowired
     private MockMvc mockMvc;
 
@@ -73,7 +76,7 @@ public class CourseControllerTest {
                 new GradeInfo("ordinary", "02-01-2024"),
                 Arrays.asList(null, 75.)
         );
-        course = new Course(
+        course = courseFactory.createCourse(
                 courseId,
                 "course-titleT",
                 new HashMap<>(),

@@ -2,5 +2,3 @@
    in the following CourseService method
    List<Course> getCoursesByIds(Set<String> courseIds)
 2. Do post-request validation logic in registration and grade-table
-3. Make interfaces where needed:
-    Student, Course

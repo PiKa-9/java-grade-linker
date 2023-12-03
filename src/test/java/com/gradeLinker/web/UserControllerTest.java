@@ -1,6 +1,7 @@
 package com.gradeLinker.web;
 
 
+import com.gradeLinker.domain.CourseFactory;
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.user.User;
@@ -34,6 +35,8 @@ public class UserControllerTest {
     @Autowired
     private GradeFactory gradeFactory;
     @Autowired
+    private CourseFactory courseFactory;
+    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
@@ -60,7 +63,7 @@ public class UserControllerTest {
                 new HashSet<>()
         );
 
-        Course course = new Course(
+        Course course = courseFactory.createCourse(
                 "course-idT",
                 "course-titleT",
                 new HashMap<>(),

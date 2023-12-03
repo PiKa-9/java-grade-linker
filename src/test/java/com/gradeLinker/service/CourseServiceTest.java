@@ -1,6 +1,7 @@
 package com.gradeLinker.service;
 
 
+import com.gradeLinker.domain.CourseFactory;
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseGrades;
@@ -27,6 +28,8 @@ import static org.mockito.Mockito.*;
 public class CourseServiceTest {
     @Autowired
     private GradeFactory gradeFactory;
+    @Autowired
+    private CourseFactory courseFactory;
     @Autowired
     private CourseService courseService;
 
@@ -109,7 +112,7 @@ public class CourseServiceTest {
 
     @Test
     void ShouldSaveCourse() {
-        Course course = new Course(
+        Course course = courseFactory.createCourse(
                 "course-id-1T",
                 null,
                 new HashMap<>(),

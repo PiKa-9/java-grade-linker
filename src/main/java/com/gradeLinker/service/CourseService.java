@@ -1,5 +1,6 @@
 package com.gradeLinker.service;
 
+import com.gradeLinker.domain.CourseFactory;
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseGrades;
@@ -21,14 +22,16 @@ public class CourseService {
 
     private final CourseDTOMapper courseDTOMapper;
     private final GradeFactory gradeFactory;
+    private final CourseFactory courseFactory;
     private final CourseRepository courseRepo;
     private final UsersRepository usersRepo;
 
     @Autowired
-    public CourseService(IdGenerator<String> idGenerator, CourseDTOMapper courseDTOMapper, GradeFactory gradeFactory, CourseRepository courseRepo, UsersRepository usersRepo) {
+    public CourseService(IdGenerator<String> idGenerator, CourseDTOMapper courseDTOMapper, GradeFactory gradeFactory, CourseFactory courseFactory, CourseRepository courseRepo, UsersRepository usersRepo) {
         this.idGenerator = idGenerator;
         this.courseDTOMapper = courseDTOMapper;
         this.gradeFactory = gradeFactory;
+        this.courseFactory = courseFactory;
         this.courseRepo = courseRepo;
         this.usersRepo = usersRepo;
     }
@@ -90,7 +93,7 @@ public class CourseService {
         // object-lock here, so different users couldn't generate the same id
         String id = this.generateUniqueCourseId();
 
-        Course course = new Course(
+        Course course = courseFactory.createCourse(
                 id,
                 title,
                 Map.of(

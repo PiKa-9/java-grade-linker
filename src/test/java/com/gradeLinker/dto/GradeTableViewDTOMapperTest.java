@@ -1,5 +1,6 @@
 package com.gradeLinker.dto;
 
+import com.gradeLinker.domain.CourseFactory;
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseGrades;
@@ -20,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GradeTableViewDTOMapperTest {
     @Autowired
     private GradeFactory gradeFactory;
+    @Autowired
+    private CourseFactory courseFactory;
     @Autowired
     private GradeTableViewDTOMapper gradeTableViewDTOMapper;
 
@@ -59,7 +62,7 @@ public class GradeTableViewDTOMapperTest {
            user2      25.        75.         90.
         */
 
-        course = new Course(
+        course = courseFactory.createCourse(
                 "course-idT",
                 "course-titleT",
                 participants,

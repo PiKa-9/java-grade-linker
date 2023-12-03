@@ -1,7 +1,6 @@
 package com.gradeLinker.domain.course;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class Student extends CourseParticipant {

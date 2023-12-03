@@ -48,8 +48,9 @@
 }
 
 .add-grade-column-form {
-    width: 20vw;
-    margin: 5vh 2vw;
+    width: 14vw;
+    margin-top: 0;
+    margin-left: 4vw;
     position: sticky;
     left: 10px;
 }

@@ -5,11 +5,11 @@
     "username" : "user2",
     "roles" : [ "has-grades" ]
   }, {
-    "username" : "user3",
-    "roles" : [ "has-grades" ]
-  }, {
     "username" : "user1",
     "roles" : [ "all-grade-viewer", "all-grade-changer" ]
+  }, {
+    "username" : "user3",
+    "roles" : [ "has-grades" ]
   } ],
   "courseGrades" : {
     "studentUsernames" : [ "user3", "user2" ],
@@ -26,6 +26,6 @@
       "category" : "ordinary",
       "date" : "11-05-2024"
     } ],
-    "grades" : [ [ 34.0, 45.0 ], [ 4.0, 32.0 ], [ 32.0, 0.0 ], [ 98.0, 100.0 ] ]
+    "grades" : [ [ 34.0, 45.0 ], [ 4.0, 32.0 ], [ 32.0, null ], [ 98.0, 100.0 ] ]
   }
 }
