@@ -69,4 +69,9 @@ public class CourseService {
                 course.getCourseGrades().getGradesByUsername(studentUsername)
         );
     }
+
+
+    public void saveCourse(Course course) {
+        courseRepo.save(course.getId(), courseDTOMapper.toDTO(course));
+    }
 }

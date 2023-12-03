@@ -39,6 +39,9 @@ public class Course {
             courseGrades.addStudent((Student) participant);
         }
     }
+    public void setCourseGrades(CourseGrades courseGrades) {
+        this.courseGrades = courseGrades;
+    }
     public void setTitle(String title) {
         this.title = title;
     }

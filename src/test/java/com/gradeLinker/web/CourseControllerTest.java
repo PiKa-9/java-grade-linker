@@ -23,6 +23,7 @@ import java.util.HashSet;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -70,6 +71,7 @@ public class CourseControllerTest {
         );
 
         when(userService.getUserByUsername(usernameT)).thenReturn(user);
+        doNothing().when(courseService).saveCourse(any());
 
         session = new MockHttpSession();
         session.setAttribute("username", usernameT);
@@ -136,5 +138,41 @@ public class CourseControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("pages/own_grades_view.html"))
                 .andExpect(model().attributeExists("courseHeading", "gradeTable"));
+    }
+
+    @Test
+    void ShouldSaveGradeTable() throws Exception {
+        participant.addRoles("all-grade-changer");
+        course.addParticipant(participant);
+        when(courseService.getCourseById(anyString())).thenReturn(course);
+
+
+        this.mockMvc.perform(post("/c/{course_id}/all-grades/save-grade-table", courseId).session(session)
+                        // .param("studentUsernames", ...)
+                )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(String.format("/c/%s/all-grades", courseId)));
+
+        verify(courseService, times(1)).saveCourse(
+                argThat(i -> i.getId().equals(courseId))
+        );
+    }
+
+    @Test
+    void ShouldNotSaveGradeTable() throws Exception {
+        /* participant hasn't got 'all-grade-changer' role */
+        course.addParticipant(participant);
+        when(courseService.getCourseById(anyString())).thenReturn(course);
+
+
+        this.mockMvc.perform(post("/c/{course_id}/all-grades/save-grade-table", courseId).session(session)
+                        // .param("studentUsernames", ...)
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("pages/error.html"));
+
+        verify(courseService, times(0)).saveCourse(
+                any()
+        );
     }
 }

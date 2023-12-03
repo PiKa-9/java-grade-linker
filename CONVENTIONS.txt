@@ -17,6 +17,9 @@ Possible Roles:
     - create_course
     - join_course
 
+==================================
+
+Interactions with repository are only allowed for 'service' layer
 
 ==================================
 
@@ -34,5 +37,6 @@ Domain classes:
               instead define addAll(...), clearAll() methods
 
 ==================================
+
 Variable naming:
     participant <- participant of the course

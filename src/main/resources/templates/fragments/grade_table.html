@@ -1,28 +1,37 @@
 <link rel="stylesheet" th:href="@{/css/fragments/grade_table.css}">
 
-<table id="grade-table" class="grade-table" th:object="${gradeTable}">
-    <tr id="column-headers">
-        <th></th>
-        <th th:each="date, iStat: *{dates}">
-            <span th:text="*{gradeCategories[__${iStat.index}__]}"></span>
-            <br>
-            <span th:text="${date}"></span>
-            <!-- store the 'gradeTable.dates' for post-request in hidden input -->
-            <input type="hidden" th:value="${date}" name="dates">
-            <!-- store the 'gradeTable.dates' for post-request in hidden input -->
-            <input type="hidden" th:value="*{gradeCategories[__${iStat.index}__]}" name="gradeCategories">
-        </th>
-    </tr>
+<form id="save-grade-table-form" th:action="'/c/' + ${courseHeading.courseId} + '/all-grades/save-grade-table'" method="post">
+    <table id="grade-table" class="grade-table" th:object="${gradeTable}">
+        <tr id="column-headers">
+            <th></th>
+            <th th:each="date, iStat: *{dates}">
+                <span th:text="*{gradeCategories[__${iStat.index}__]}"></span>
+                <br>
+                <span th:text="${date}"></span>
+                <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                <input type="hidden" th:value="${date}" name="dates">
+                <!-- store the 'gradeTable.dates' for post-request in hidden input -->
+                <input type="hidden" th:value="*{gradeCategories[__${iStat.index}__]}" name="gradeCategories">
+            </th>
+        </tr>
 
-    <tr th:each="studentFullName, iStat : *{studentFullNames}">
-        <td class="first-col">
-            <span th:text="${studentFullName}"></span>
-            <!-- store the 'gradeTable.studentUsernames' for post-request in hidden input -->
-            <input type="hidden" th:value="*{studentUsernames[__${iStat.index}__]}" name="studentUsernames">
-        </td>
-        <td class="grade-cell" th:each="grade : *{grades[__${iStat.index}__]}">
-            <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
-            <input class="grade-input" type="number" th:value="${grade}" name="grades">
-        </td>
-    </tr>
-</table>
+        <tr th:each="studentFullName, iStat : *{studentFullNames}">
+            <td class="first-col">
+                <span th:text="${studentFullName}"></span>
+                <!-- store the 'gradeTable.studentUsernames' for post-request in hidden input -->
+                <input type="hidden" th:value="*{studentUsernames[__${iStat.index}__]}" name="studentUsernames">
+            </td>
+            <td class="grade-cell" th:each="grade, jStat : *{grades[__${iStat.index}__]}">
+                <!-- store the 'gradeTable.gradeSet' for rendering and post-request in following input -->
+                <input class="grade-input"
+                       type="number"
+                       min="0"
+                       max="100"
+                       pattern="\d+"
+                       th:value="${grade}" th:name="grades">
+            </td>
+        </tr>
+    </table>
+
+    <input id="save-grade-table-button" type="submit" value="Save Grade Table">
+</form>

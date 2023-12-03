@@ -1,35 +1,28 @@
 {
   "id" : "4gF9JG",
   "title" : "Math",
-  "participants": [ {
+  "participants" : [ {
+    "username" : "user3",
+    "roles" : [ "has-grades" ]
+  }, {
     "username" : "user1",
-    "roles" : [ "all-grade-viewer" ]
+    "roles" : [ "all-grade-viewer", "all-grade-changer" ]
   }, {
     "username" : "user2",
     "roles" : [ "has-grades" ]
-  }, {
-    "username" : "user3",
-    "roles" : [ "has-grades" ]
   } ],
-  "courseGrades": {
-    "studentUsernames": [ "user2", "user3" ],
-    "gradeInfoList": [
-      {
-      "category": "ordinary",
-      "date": "01-01-2024"
-      },
-      {
-        "category": "ordinary",
-        "date": "01-02-2024"
-      },
-      {
-        "category": "ordinary",
-        "date": "11-05-2024"
-      }],
-    "grades": [
-      [ 50, null ],
-      [ 60, 78.5 ],
-      [ 100, 98 ]
-    ]
+  "courseGrades" : {
+    "studentUsernames" : [ "user3", "user2" ],
+    "gradeInfoList" : [ {
+      "category" : "ordinary",
+      "date" : "01-01-2024"
+    }, {
+      "category" : "ordinary",
+      "date" : "01-02-2024"
+    }, {
+      "category" : "ordinary",
+      "date" : "11-05-2024"
+    } ],
+    "grades" : [ [ 34.0, null ], [ 4.0, 32.0 ], [ 98.0, 100.0 ] ]
   }
 }

@@ -20,7 +20,6 @@ public class WebConfig {
         FilterRegistrationBean<UserFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(userFilter);
 
-        // Specify URL patterns to which the filter should be applied
         registrationBean.addUrlPatterns("/h", "/create-course", "/join-course", "/c/*");
 
         return registrationBean;

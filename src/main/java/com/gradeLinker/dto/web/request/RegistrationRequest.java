@@ -1,4 +1,4 @@
-package com.gradeLinker.dto.web;
+package com.gradeLinker.dto.web.request;
 
 public class RegistrationRequest {
     private String username;

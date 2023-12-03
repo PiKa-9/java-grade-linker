@@ -2,7 +2,8 @@ package com.gradeLinker.web;
 
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.storage.UserDTOMapper;
-import com.gradeLinker.dto.web.RegistrationRequest;
+import com.gradeLinker.dto.web.request.GradeTableRequest;
+import com.gradeLinker.dto.web.request.RegistrationRequest;
 import com.gradeLinker.repository.UsersRepository;
 import com.gradeLinker.service.PasswordHasher;
 import jakarta.servlet.http.HttpSession;
@@ -36,34 +37,39 @@ public class RegistrationController {
         return "pages/register.html";
     }
 
+    private boolean validRegistrationRequest(RegistrationRequest request) {
+        // TODO
+        return true;
+    }
     @PostMapping("/register")
-    public String registerPost(@ModelAttribute RegistrationRequest response, HttpSession session, Model model) {
-        if (!response.getPassword().equals(response.getConfirmPassword())) {
+    public String registerPost(@ModelAttribute RegistrationRequest request, HttpSession session, Model model) {
+        if (!validRegistrationRequest(request)) { return "redirect:/error"; }
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
             model.addAttribute("invalid", "Passwords aren't equal");
             return "pages/register.html";
         }
 
-        if (usersRepo.existsById(response.getUsername())) {
+        if (usersRepo.existsById(request.getUsername())) {
             model.addAttribute("invalid", "Such username already exists");
             return "pages/register.html";
         }
 
         /* Add user to users repository */
         User user = new User(
-                response.getUsername(),
-                hasher.hash(response.getPassword()),
+                request.getUsername(),
+                hasher.hash(request.getPassword()),
                 new HashSet<>(),
-                response.getFirstName(),
-                response.getLastName(),
+                request.getFirstName(),
+                request.getLastName(),
                 new HashSet<>()
         );
 
         user.addRoles("join_course");
-        if (response.getType().equals("teacher")) {
+        if (request.getType().equals("teacher")) {
             user.addRoles("create_course");
         }
         usersRepo.save(user.getUsername(), userDTOMapper.toDTO(user));
-        session.setAttribute("username", response.getUsername());
+        session.setAttribute("username", request.getUsername());
 
         return "redirect:/h";
     }

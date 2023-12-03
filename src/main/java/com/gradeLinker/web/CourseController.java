@@ -3,18 +3,18 @@ package com.gradeLinker.web;
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseParticipant;
 import com.gradeLinker.domain.user.User;
-import com.gradeLinker.dto.web.AccountViewDTOMapper;
-import com.gradeLinker.dto.web.CourseHeadingViewDTO;
-import com.gradeLinker.dto.web.CourseTabViewDTOMapper;
-import com.gradeLinker.dto.web.GradeTableViewDTOMapper;
+import com.gradeLinker.dto.web.*;
+import com.gradeLinker.dto.web.request.GradeTableRequest;
+import com.gradeLinker.dto.web.request.GradeTableRequestMapper;
+import com.gradeLinker.dto.web.request.RegistrationRequest;
 import com.gradeLinker.service.CourseService;
 import com.gradeLinker.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,14 +23,16 @@ public class CourseController {
     private final AccountViewDTOMapper accountDTOMapper;
     private final CourseTabViewDTOMapper courseTabDTOMapper;
     private final GradeTableViewDTOMapper gradeTableViewDTOMapper;
+    private final GradeTableRequestMapper gradeTableRequestMapper;
     private final UserService userService;
     private final CourseService courseService;
 
     @Autowired
-    public CourseController(AccountViewDTOMapper accountDTOMapper, CourseTabViewDTOMapper courseTabDTOMapper, GradeTableViewDTOMapper gradeTableViewDTOMapper, UserService userService, CourseService courseService) {
+    public CourseController(AccountViewDTOMapper accountDTOMapper, CourseTabViewDTOMapper courseTabDTOMapper, GradeTableViewDTOMapper gradeTableViewDTOMapper, GradeTableRequestMapper gradeTableRequestMapper, UserService userService, CourseService courseService) {
         this.accountDTOMapper = accountDTOMapper;
         this.courseTabDTOMapper = courseTabDTOMapper;
         this.gradeTableViewDTOMapper = gradeTableViewDTOMapper;
+        this.gradeTableRequestMapper = gradeTableRequestMapper;
         this.userService = userService;
         this.courseService = courseService;
     }
@@ -124,4 +126,26 @@ public class CourseController {
         return "pages/own_grades_view.html";
     }
 
+    private boolean validGradeTableRequest(GradeTableRequest gradeTableRequest) {
+        // TODO
+        return true;
+    }
+    @PostMapping("/c/{course_id}/all-grades/save-grade-table")
+    public String saveGradeTable(@PathVariable("course_id") String courseId, @ModelAttribute GradeTableRequest gradeTableRequest, HttpSession session, Model model) {
+        if (!validGradeTableRequest(gradeTableRequest)) { return "/redirect:error"; }
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
+        if (user == null) { return "redirect:/error"; }
+
+        Course course = courseService.getCourseById(courseId);
+        if (course == null) { return "redirect:/error"; }
+
+        CourseParticipant participant = course.getParticipantByUsername(user.getUsername());
+        if (participant == null) { return "redirect/error"; }
+        if (!participant.hasRoles("all-grade-changer")) { return "pages/error.html"; }
+
+        course.setCourseGrades(gradeTableRequestMapper.fromDTO(gradeTableRequest));
+        courseService.saveCourse(course);
+
+        return String.format("redirect:/c/%s/all-grades", courseId);
+    }
 }

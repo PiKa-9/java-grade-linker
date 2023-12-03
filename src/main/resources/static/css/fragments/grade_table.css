@@ -36,3 +36,12 @@
 .grade-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+
+
+#save-grade-table-form {
+    margin: 5vh 2vw;
+}
+#save-grade-table-button {
+    position: sticky;
+    left: 10px;
+}
