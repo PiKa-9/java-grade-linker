@@ -60,6 +60,12 @@ public class CourseGradesImpl implements CourseGrades {
     @Override
     public void add(GradeInfo gradeInfo, List<Double> gradeValues) {
         gradeInfoList.add(gradeInfo);
+        if (gradeValues == null) {
+            gradeValues = new ArrayList<>();
+            for (int j = 0; j < studentUsernames.size(); ++j) {
+                gradeValues.add(null);
+            }
+        }
         grades.add(gradeValues);
     }
     @Override

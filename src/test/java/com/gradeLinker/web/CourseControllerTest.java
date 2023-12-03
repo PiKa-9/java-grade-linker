@@ -3,7 +3,9 @@ package com.gradeLinker.web;
 
 import com.gradeLinker.domain.GradeFactory;
 import com.gradeLinker.domain.course.Course;
+import com.gradeLinker.domain.course.CourseGrades;
 import com.gradeLinker.domain.course.CourseParticipant;
+import com.gradeLinker.domain.course.GradeInfo;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.service.CourseService;
 import com.gradeLinker.service.UserService;
@@ -18,6 +20,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -53,7 +56,7 @@ public class CourseControllerTest {
         user = new User(
                 usernameT,
                 0,
-                new HashSet<>(),
+                new HashSet<>(Arrays.asList("join_course", "create_course")),
                 null, null,
                 new HashSet<>()
         );
@@ -63,6 +66,13 @@ public class CourseControllerTest {
                 new HashSet<>()
         );
         courseId = "course-idT";
+        CourseGrades courseGrades = gradeFactory.createCourseGrades(
+                Arrays.asList("user1T", "user2T")
+        );
+        courseGrades.add(
+                new GradeInfo("ordinary", "02-01-2024"),
+                Arrays.asList(null, 75.)
+        );
         course = new Course(
                 courseId,
                 "course-titleT",
@@ -118,14 +128,15 @@ public class CourseControllerTest {
 
     @Test
     void ShouldDisplayAllGradesView() throws Exception {
-        participant.addRoles("all-grade-viewer");
+        participant.addRoles("all-grade-viewer", "all-grade-changer");
         course.addParticipant(participant);
         when(courseService.getCourseById(anyString())).thenReturn(course);
 
         mockMvc.perform(get("/c/{course_id}/all-grades", courseId).session(session))
                 .andExpect(status().isOk())
                 .andExpect(view().name("pages/all_grades_view.html"))
-                .andExpect(model().attributeExists("courseHeading", "gradeTable"));
+                .andExpect(model().attributeExists("courseHeading", "gradeTable"))
+                .andExpect(model().attributeExists("saveGradeTable", "addGradeColumn"));
     }
 
     @Test
@@ -166,6 +177,42 @@ public class CourseControllerTest {
 
 
         this.mockMvc.perform(post("/c/{course_id}/all-grades/save-grade-table", courseId).session(session)
+                        // .param("studentUsernames", ...)
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("pages/error.html"));
+
+        verify(courseService, times(0)).saveCourse(
+                any()
+        );
+    }
+
+    @Test
+    void ShouldAddGradeColumn() throws Exception {
+        participant.addRoles("all-grade-changer");
+        course.addParticipant(participant);
+        when(courseService.getCourseById(anyString())).thenReturn(course);
+
+
+        this.mockMvc.perform(post("/c/{course_id}/all-grades/add-grade-column", courseId).session(session)
+                        // .param("studentUsernames", ...)
+                )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(String.format("/c/%s/all-grades", courseId)));
+
+        verify(courseService, times(1)).saveCourse(
+                argThat(i -> i.getId().equals(courseId))
+        );
+    }
+
+    @Test
+    void ShouldNotAddGradeColumn() throws Exception {
+        /* participant hasn't got 'all-grade-changer' role */
+        course.addParticipant(participant);
+        when(courseService.getCourseById(anyString())).thenReturn(course);
+
+
+        this.mockMvc.perform(post("/c/{course_id}/all-grades/add-grade-column", courseId).session(session)
                         // .param("studentUsernames", ...)
                 )
                 .andExpect(status().isOk())

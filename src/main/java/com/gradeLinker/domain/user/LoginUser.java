@@ -11,10 +11,6 @@ public class LoginUser {
     private int passwordHash;
     private Set<String> roles = new HashSet<>(); // general-roles
 
-    public LoginUser(String username, int passwordHash) {
-        this.username = username;
-        this.passwordHash = passwordHash;
-    }
     public LoginUser(String username, int passwordHash, Set<String> roles) {
         this.username = username;
         this.passwordHash = passwordHash;
@@ -40,8 +36,8 @@ public class LoginUser {
     }
 
 
-    public void removeRoles(String... roles) {
-        // idea recommended to make faster
-        Arrays.stream(roles).toList().forEach(this.roles::remove);
-    }
+    // public void removeRoles(String... roles) {
+    //     // idea recommended to make faster
+    //     Arrays.stream(roles).toList().forEach(this.roles::remove);
+    // }
 }

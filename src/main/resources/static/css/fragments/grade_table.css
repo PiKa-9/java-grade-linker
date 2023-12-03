@@ -42,6 +42,14 @@
     margin: 5vh 2vw;
 }
 #save-grade-table-button {
+    margin: 5vh 2vw;
+    position: sticky;
+    left: 10px;
+}
+
+.add-grade-column-form {
+    width: 20vw;
+    margin: 5vh 2vw;
     position: sticky;
     left: 10px;
 }

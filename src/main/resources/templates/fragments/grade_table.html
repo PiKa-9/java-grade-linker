@@ -33,5 +33,12 @@
         </tr>
     </table>
 
-    <input id="save-grade-table-button" type="submit" value="Save Grade Table">
+    <input th:if="${saveGradeTable}" id="save-grade-table-button" type="submit" value="Save Grade Table">
 </form>
+
+<div th:if="${addGradeColumn}" class="add-grade-column-form">
+<form th:action="'/c/' + ${courseHeading.courseId} + '/all-grades/add-grade-column'" method="post">
+    <input id="date-field" class="form-control" type="text" name="date" placeholder="Date" required>
+    <input id="add-grade-column-button" type="submit" value="Add grade Column">
+</form>
+</div>

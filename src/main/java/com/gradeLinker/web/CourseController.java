@@ -2,8 +2,10 @@ package com.gradeLinker.web;
 
 import com.gradeLinker.domain.course.Course;
 import com.gradeLinker.domain.course.CourseParticipant;
+import com.gradeLinker.domain.course.GradeInfo;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.web.*;
+import com.gradeLinker.dto.web.request.GradeColumnRequest;
 import com.gradeLinker.dto.web.request.GradeTableRequest;
 import com.gradeLinker.dto.web.request.GradeTableRequestMapper;
 import com.gradeLinker.dto.web.request.RegistrationRequest;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
 
 @Controller
 public class CourseController {
@@ -94,6 +98,10 @@ public class CourseController {
                 course.getTitle()
         ));
         model.addAttribute("gradeTable", gradeTableViewDTOMapper.toDTO(course));
+        if (participant.hasRoles("all-grade-changer")) {
+            model.addAttribute("saveGradeTable", true);
+            model.addAttribute("addGradeColumn", true);
+        }
 
         return "pages/all_grades_view.html";
     }
@@ -144,6 +152,33 @@ public class CourseController {
         if (!participant.hasRoles("all-grade-changer")) { return "pages/error.html"; }
 
         course.setCourseGrades(gradeTableRequestMapper.fromDTO(gradeTableRequest));
+        courseService.saveCourse(course);
+
+        return String.format("redirect:/c/%s/all-grades", courseId);
+    }
+
+    private boolean validGradeColumnRequest(GradeColumnRequest gradeColumnRequest) {
+        // TODO
+        return true;
+    }
+    @PostMapping("/c/{course_id}/all-grades/add-grade-column")
+    public String addGradeColumn(@PathVariable("course_id") String courseId, @ModelAttribute GradeColumnRequest gradeColumnRequest, HttpSession session, Model model) {
+        if (!validGradeColumnRequest(gradeColumnRequest)) { return "/redirect:error"; }
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
+        if (user == null) { return "redirect:/error"; }
+
+        Course course = courseService.getCourseById(courseId);
+        if (course == null) { return "redirect:/error"; }
+
+        CourseParticipant participant = course.getParticipantByUsername(user.getUsername());
+        if (participant == null) { return "redirect/error"; }
+        if (!participant.hasRoles("all-grade-changer")) { return "pages/error.html"; }
+
+        GradeInfo gradeInfo = new GradeInfo(
+                "ordinary",
+                gradeColumnRequest.getDate()
+        );
+        course.getCourseGrades().add(gradeInfo, null);
         courseService.saveCourse(course);
 
         return String.format("redirect:/c/%s/all-grades", courseId);

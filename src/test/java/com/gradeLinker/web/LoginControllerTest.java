@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashSet;
+
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -43,7 +45,8 @@ public class LoginControllerTest {
         passwordT = "passwordT";
         user = new LoginUser(
                 usernameT,
-                hasher.hash(passwordT)
+                hasher.hash(passwordT),
+                new HashSet<>()
         );
 
         when(loginService.login(usernameT, passwordT)).thenReturn(user);

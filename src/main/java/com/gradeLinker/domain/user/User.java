@@ -37,8 +37,8 @@ public class User extends LoginUser {
     }
 
 
-    public void removeCourseIds(String... courseIds) {
-        // idea recommended to make faster
-        Arrays.stream(courseIds).toList().forEach(this.courseIds::remove);
-    }
+    // public void removeCourseIds(String... courseIds) {
+    //     // idea recommended to make faster
+    //     Arrays.stream(courseIds).toList().forEach(this.courseIds::remove);
+    // }
 }

@@ -21,7 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class CourseServiceTest {
@@ -105,5 +105,18 @@ public class CourseServiceTest {
         }
 
         assertEquals(courseIds, returnedCourseIds);
+    }
+
+    @Test
+    void ShouldSaveCourse() {
+        Course course = new Course(
+                "course-id-1T",
+                null,
+                new HashMap<>(),
+                gradeFactory.createCourseGrades(new ArrayList<>())
+        );
+        courseService.saveCourse(course);
+
+        verify(courseRepo, times(1)).save(eq("course-id-1T"), any());
     }
 }
