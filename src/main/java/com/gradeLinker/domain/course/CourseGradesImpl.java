@@ -72,6 +72,12 @@ public class CourseGradesImpl implements CourseGrades {
     public void addStudent(Student student) {
         studentUsernames.add(student.getUsername());
         List<Double> studentGrades = student.getStudentGrades();
+        if (studentGrades == null) {
+            studentGrades = new ArrayList<>();
+            for (int i = 0; i < gradeInfoList.size(); ++i) {
+                studentGrades.add(null);
+            }
+        }
 
         /* i - grade info id */
         for (int i = 0; i < gradeInfoList.size(); ++i) {

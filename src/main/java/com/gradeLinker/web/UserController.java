@@ -1,6 +1,8 @@
 package com.gradeLinker.web;
 
 
+import com.gradeLinker.domain.course.Course;
+import com.gradeLinker.domain.course.Student;
 import com.gradeLinker.domain.user.User;
 import com.gradeLinker.dto.web.AccountViewDTOMapper;
 import com.gradeLinker.dto.web.CourseTabViewDTOMapper;
@@ -14,7 +16,11 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Controller
 public class UserController {
@@ -64,6 +70,31 @@ public class UserController {
             return "pages/error.html";
         }
     }
+    @PostMapping("/join-course")
+    public String joinCoursePost(@RequestParam("courseId") String courseId,  HttpSession session, Model model) {
+        User user = userService.getUserByUsername((String) session.getAttribute("username"));
+        if (user == null) { return "redirect:/error"; }
+
+        if (!user.hasRole("join_course")) { return "pages/error.html"; }
+        Course course = courseService.getCourseById(courseId);
+        if (course == null) {
+            model.addAttribute("invalid", "Invalid Course Id");
+            return "pages/join_course.html";
+        }
+
+        user.addCourseIds(courseId);
+        userService.saveUser(user);
+        /* User joins the course as a student */
+        course.addParticipant(new Student(
+                user.getUsername(),
+                user.getFullName(),
+                new HashSet<>(Arrays.asList("has-grades")),
+                null
+        ));
+        courseService.saveCourse(course);
+
+        return String.format("redirect:/c/%s", courseId);
+    }
 
     @GetMapping("/create-course")
     public String createCourse(HttpSession session, Model model) {
@@ -76,4 +107,5 @@ public class UserController {
             return "pages/error.html";
         }
     }
+
 }

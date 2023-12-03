@@ -1,0 +1,24 @@
+body {
+    flex-direction: column;
+    margin: 1%;
+    align-items: center;
+    justify-content: center;
+}
+.heading {
+    margin-top: 10vh;
+}
+.form-0 {
+/*    width: 300px;*/
+/*    padding: 20px;*/
+/*    background-color: #555;*/
+/*    border-top-left-radius: 255px 15px;*/
+/*    border-top-right-radius: 255px 15px;*/
+/*    border-bottom-left-radius: 255px 15px;*/
+/*    border-bottom-right-radius: 255px 15px;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);*/
+
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

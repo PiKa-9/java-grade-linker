@@ -20,4 +20,8 @@ public class UserService {
     public User getUserByUsername(String username) {
         return userDTOMapper.fromDTO(usersRepo.getById(username));
     }
+
+    public void saveUser(User user) {
+        usersRepo.save(user.getUsername(), userDTOMapper.toDTO(user));
+    }
 }

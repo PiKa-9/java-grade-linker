@@ -1,7 +1,7 @@
 {
   "username" : "user2",
-  "roles" : [ "join_course" ],
   "passwordHash" : 49,
+  "roles" : [ "join_course" ],
   "firstName" : "Simple",
   "lastName" : "Student",
   "courseIds" : [ "4gF9JG" ]
